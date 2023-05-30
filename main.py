@@ -2,6 +2,11 @@ import ast
 import subprocess
 from typing import List, Union
 
+import typer
+from typing_extensions import Annotated
+
+app = typer.Typer()
+
 
 def get_files_to_commit() -> list[str]:
     result = subprocess.run(
@@ -56,21 +61,35 @@ def check_file_for_type_hints(file: str) -> List[str]:
     return checker.errors
 
 
-def main():
+@app.command()
+def check(ignore: Annotated[bool, typer.Option(
+    help="In the pre-commit, select whether to ignore the error and proceed with the commit.")] = False) -> None:
     errors = []
     for file in get_files_to_commit():
         if file_errors := check_file_for_type_hints(file):
             errors.extend([f"{file}: {error}" for error in file_errors])
-
     if errors:
         print("Type hint errors found:")
         for error in errors:
             print(error)
+    else:
+        print("No type hint errors found")
+    if not ignore and errors:
         exit(1)
     else:
+        exit(0)
+
+
+@app.command()
+def check_file(file: str) -> None:
+    errors = []
+    if file_errors := check_file_for_type_hints(file):
+        errors.extend([f"{file}: {error}" for error in file_errors])
+
+    if errors:
         print("No type hint errors found")
         exit(0)
 
 
 if __name__ == "__main__":
-    main()
+    app()

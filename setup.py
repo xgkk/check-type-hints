@@ -8,7 +8,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'check_type_hints =main:app'
+            'check_type_hints=check_type_hints.main:app'
         ]
     }
 )

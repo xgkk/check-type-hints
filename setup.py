@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
-
+version = "0.0.3"
 setup(
     name="check-type-hints",
-    version="0.0.1",
+    version=version,
     description="Helps you check type hints when you commit code.",
     install_requires=['typer', ],
     packages=find_packages(),

@@ -5,7 +5,7 @@ repos:
     hooks:
       - id: typehint-check
         name: Typehint Check
-        entry: python main.py check --no-ignore
+        entry: check_type_hints check --no-ignore
         language: system
         types: [ python ]
         stages: [ commit ]

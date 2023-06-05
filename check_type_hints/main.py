@@ -62,8 +62,14 @@ def check_file_for_type_hints(file: str) -> List[str]:
 
 
 @app.command()
-def check(ignore: Annotated[bool, typer.Option(
-    help="In the pre-commit, select whether to ignore the error and proceed with the commit.")] = False) -> None:
+def check(
+    ignore: Annotated[
+        bool,
+        typer.Option(
+            help="In the pre-commit, select whether to ignore the error and proceed with the commit."
+        ),
+    ] = False
+) -> None:
     errors = []
     for file in get_files_to_commit():
         if file_errors := check_file_for_type_hints(file):

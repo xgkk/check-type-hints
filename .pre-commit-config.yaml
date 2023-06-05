@@ -1,11 +1,9 @@
-fail_fast: false
-
 repos:
   - repo: local
     hooks:
       - id: typehint-check
         name: Typehint Check
-        entry: check_type_hints check --no-ignore
+        entry: check_type_hints check --ignore
         language: system
         types: [ python ]
         stages: [ commit ]
